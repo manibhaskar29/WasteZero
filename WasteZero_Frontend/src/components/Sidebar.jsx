@@ -1,0 +1,109 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Leaf,
+  CalendarDays,
+  MessageSquare,
+  User,
+  Settings,
+  HelpCircle,
+  Pencil,
+  PlusCircle,
+  LogOut,
+} from "lucide-react";
+
+const navItems = [
+  { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
+  { name: "Eco Opportunities", icon: Leaf, path: "/opportunities" },
+  { name: "Pickup Schedule", icon: CalendarDays, path: "/schedule" },
+  { name: "Messages", icon: MessageSquare, path: "/messages" },
+  { name: "My Profile", icon: User, path: "/profile" },
+  { name: "Settings", icon: Settings, path: "/settings" },
+  { name: "Help & Support", icon: HelpCircle, path: "/help" },
+];
+
+export default function Sidebar({ active, onLogout }) {
+  const nav = useNavigate();
+  const role = localStorage.getItem("role"); // "ngo" or "user"
+
+  return (
+    <aside className="fixed top-0 left-0 h-full w-64 bg-white dark:bg-zinc-800 shadow-lg border-r border-gray-200 dark:border-zinc-700 flex flex-col justify-between transition-all duration-300">
+      <div>
+        {/* Logo */}
+        <div className="flex flex-col items-center pt-4">
+          <span className="text-3xl font-semibold text-green-700 dark:text-green-400">
+            <span className="text-gray-900 dark:text-white">Waste</span>Zero
+          </span>
+          <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+            Eco-friendly Waste Management
+          </span>
+        </div>
+
+        {/* Navigation */}
+        <nav className="p-4 space-y-2 mt-6">
+          {navItems.map(({ name, icon: Icon, path }) => (
+            <button
+              key={name}
+              onClick={() => nav(path)}
+              className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${
+                active === name
+                  ? "bg-green-600 text-white shadow-md"
+                  : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+            >
+              <Icon size={18} />
+              {name}
+            </button>
+          ))}
+
+          {/* NGO-only options under Eco Opportunities */}
+          {role === "ngo" && (
+            <div className="pt-4 border-t border-gray-300 dark:border-zinc-700">
+              <p className="text-xs text-gray-500 dark:text-gray-400 px-2 mb-1">
+                NGO Tools
+              </p>
+
+              {/* Create Opportunity */}
+              <button
+                onClick={() => nav("/opportunities/create")}
+                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${
+                  active === "Create Opportunity"
+                    ? "bg-green-600 text-white shadow-md"
+                    : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                }`}
+              >
+                <PlusCircle size={18} />
+                Create Opportunity
+              </button>
+
+              {/* Edit Opportunity */}
+              <button
+                onClick={() => nav("/opportunities/edit")}
+                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${
+                  active === "Edit Opportunity"
+                    ? "bg-green-600 text-white shadow-md"
+                    : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                }`}
+              >
+              
+                <Pencil size={18} />
+                Edit Opportunity
+              </button>
+            </div>
+          )}
+        </nav>
+      </div>
+
+      {/* Logout */}
+      {/* <div className="p-4">
+        <button
+          onClick={onLogout}
+          className="flex items-center justify-center gap-2 w-full px-4 py-3 text-white bg-red-500 hover:bg-red-600 rounded-lg transition"
+        >
+          <LogOut size={18} /> Logout
+        </button>
+      </div> */}
+    </aside>
+  );
+}
