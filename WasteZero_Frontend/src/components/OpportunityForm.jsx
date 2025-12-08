@@ -32,6 +32,7 @@ export default function OpportunityForm({
     "Environmental Awareness Campaigns",
   ];
 
+  
   const setField = (key, value) => {
     setValues((prev) => ({ ...prev, [key]: value }));
   };
@@ -57,7 +58,7 @@ export default function OpportunityForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 ">
 
       {/* Title */}
       <div>
@@ -65,8 +66,8 @@ export default function OpportunityForm({
           Title *
         </label>
         <input
-          className="w-full border border-gray-300 dark:border-gray-700
-                     bg-white dark:bg-green-200 dark:text-green-900
+          className="w-full border border-gray-300 dark:border-gray-700 text-gray-600
+                     bg-white dark:bg-zinc-700  dark:text-zinc-400
                      rounded-xl px-3 py-2 focus:border-green-600"
           placeholder="e.g., Community Recycling Drive"
           value={values.title}
@@ -82,7 +83,7 @@ export default function OpportunityForm({
         <textarea
           rows="4"
           className="w-full border border-gray-300 dark:border-gray-700
-                     bg-white dark:bg-green-200 dark:text-green-900
+                     bg-white dark:bg-zinc-700 text-gray-600 dark:text-zinc-400
                      rounded-xl px-3 py-2 focus:border-green-600"
           placeholder="Describe tasks, goals, and volunteer expectations"
           value={values.description}
@@ -97,7 +98,7 @@ export default function OpportunityForm({
         </label>
         <input
           className="w-full border border-gray-300 dark:border-gray-700
-                     bg-white dark:bg-green-200 dark:text-green-900
+                     bg-white dark:bg-zinc-700 text-gray-600 dark:text-zinc-400
                      rounded-xl px-3 py-2 focus:border-green-600"
           placeholder="City or area"
           value={values.location}
@@ -113,13 +114,13 @@ export default function OpportunityForm({
 
         <div
           className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-2xl
-                     bg-green-50 dark:bg-green-200 border border-green-300 dark:border-green-900"
+                     bg-green-50 dark:bg-zinc-700 border border-green-300 dark:border-zinc-700"
         >
           {ALL_SKILLS.map((skill) => (
             <label
               key={skill}
               className={`flex items-center gap-2 px-3 py-3 rounded-xl bg-white
-                dark:bg-green-50 dark:text-green-900 shadow-md border cursor-pointer transition
+                dark:bg-zinc-700 shadow-md border cursor-pointer transition
                 ${
                   values.skills.includes(skill)
                     ? "border-green-600 dark:border-green-400 shadow-lg text-green-700"
@@ -144,9 +145,9 @@ export default function OpportunityForm({
           <label className="font-semibold block mb-1 text-gray-700 dark:text-gray-300">
             Duration
           </label>
-          <input
-            className="w-full border border-gray-300 dark:border-gray-700
-                       bg-white dark:bg-green-200 dark:text-green-900 rounded-xl px-3 py-2"
+          <input 
+            className="w-full border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-zinc-400
+                       bg-white dark:bg-zinc-700 rounded-xl px-3 py-2"
             placeholder="e.g., 3 hours/day"
             value={values.duration}
             onChange={(e) => setField("duration", e.target.value)}
@@ -159,7 +160,7 @@ export default function OpportunityForm({
           </label>
           <select
             className="w-full border border-gray-300 dark:border-gray-700
-                       bg-white dark:bg-green-200 dark:text-green-900 rounded-xl px-3 py-2"
+                       bg-white dark:bg-zinc-700 rounded-xl px-3 py-2"
             value={values.status}
             onChange={(e) => setField("status", e.target.value)}
           >
@@ -179,7 +180,7 @@ export default function OpportunityForm({
           <input
             type="date"
             className="w-full border border-gray-300 dark:border-gray-700
-                       bg-white dark:bg-green-200 dark:text-green-900 rounded-xl px-3 py-2"
+                       bg-white dark:bg-zinc-700 rounded-xl px-3 py-2"
             value={values.startDate}
             onChange={(e) => setField("startDate", e.target.value)}
           />
@@ -192,7 +193,7 @@ export default function OpportunityForm({
           <input
             type="date"
             className="w-full border border-gray-300 dark:border-gray-700
-                       bg-white dark:bg-green-200 dark:text-green-900 rounded-xl px-3 py-2"
+                       bg-white dark:bg-zinc-700 rounded-xl px-3 py-2"
             value={values.endDate}
             onChange={(e) => setField("endDate", e.target.value)}
           />

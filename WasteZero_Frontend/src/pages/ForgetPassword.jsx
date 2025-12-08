@@ -10,7 +10,7 @@ const ForgetPassword = () => {
   const [error, setError] = useState("");
 
   // ✅ API base URL
-  const API_URL = import.meta.env.BACKEND_API_URL || "http://localhost:5173/api";
+  const API_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:5173/api";
 
   // ✅ Handle form submission
   const handleSubmit = async (e) => {

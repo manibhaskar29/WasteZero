@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Sun, Moon, LogOut } from "lucide-react";
+import { Sun, Moon, LogOut, Bell } from "lucide-react";
+import { useNotifications } from "../context/NotificationContext"; // import notification context
 
 export default function Header({
   isAuthenticated,
@@ -11,6 +12,12 @@ export default function Header({
   hasSidebar,
 }) {
   const navigate = useNavigate();
+  const { unreadCount, notifications, markAsRead } = useNotifications();
+  const [showPopover, setShowPopover] = React.useState(false);
+
+  const handleRead = (id) => {
+    markAsRead(id);
+  };
 
   return (
     <header
@@ -31,12 +38,11 @@ export default function Header({
             Zero
           </span>
         </div>
-        ) : (
-          <div
-            className="flex items-center space-x-2 cursor-pointer"
-          >
-          </div>
-        )}
+      ) : (
+        <div className="flex items-center space-x-2 cursor-pointer">
+          {/* You can add other elements here if needed */}
+        </div>
+      )}
 
       {/* 🌙 Action Buttons */}
       <div className="flex items-center gap-4">
@@ -48,6 +54,43 @@ export default function Header({
         >
           {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
+
+        {/* Notification Bell - only if logged in */}
+        {isAuthenticated && (
+          <div className="relative">
+            <button
+              className="relative p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              onClick={() => setShowPopover(prev => !prev)}
+              title="Notifications"
+            >
+              <Bell size={20} />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+
+            {showPopover && (
+              <div className="absolute right-0 mt-2 w-80 max-h-96 overflow-y-auto bg-white dark:bg-zinc-800 shadow-lg border rounded-lg z-50">
+                {notifications.length === 0 ? (
+                  <div className="p-2 text-gray-500 dark:text-gray-300">No notifications</div>
+                ) : (
+                  notifications.slice(0, 5).map(n => (
+                    <div
+                      key={n._id}
+                      className={`p-2 border-b cursor-pointer ${n.isRead ? "" : "bg-gray-100 dark:bg-zinc-700"}`}
+                      onClick={() => handleRead(n._id)}
+                    >
+                      <strong>{n.title}</strong>
+                      <p className="text-sm">{n.message}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Auth Buttons */}
         {!isAuthenticated ? (

@@ -12,6 +12,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+/** Send password reset email */
 export async function sendResetEmail(to, resetUrl) {
   const from = process.env.EMAIL_FROM || `WasteZero <noreply@yourdomain.com>`;
   const html = `
@@ -27,3 +28,48 @@ export async function sendResetEmail(to, resetUrl) {
     html,
   });
 }
+
+/** Send OTP email for signup */
+export async function sendOtpEmail(to, otp) {
+  const from = process.env.EMAIL_FROM || `WasteZero <noreply@yourdomain.com>`;
+  const html = `
+    <p>Hello,</p>
+    <p>Your One-Time Password (OTP) for WasteZero signup is:</p>
+    <h2 style="color: #28a745;">${otp}</h2>
+    <p>This OTP is valid for 5 minutes.</p>
+    <p>If you didn't request this, you can safely ignore this email.</p>
+  `;
+  await transporter.sendMail({
+    from,
+    to,
+    subject: "Your OTP for WasteZero Signup",
+    html,
+  });
+}
+
+
+/** Send Contact Support Email */
+export async function sendSupportEmail(fromEmail, userMessage) {
+  const to =
+    process.env.SUPPORT_EMAIL || 
+    process.env.SMTP_USER;       
+
+  if (!to) {
+    throw new Error("Support email (SUPPORT_EMAIL or SMTP_USER) not configured");
+  }
+
+  const html = `
+    <h3>New Support Request</h3>
+    <p><strong>From:</strong> ${fromEmail}</p>
+    <p><strong>Message:</strong></p>
+    <p>${userMessage}</p>
+  `;
+
+  await transporter.sendMail({
+    from: fromEmail, // USER EMAIL
+    to,              // SUPPORT EMAIL
+    subject: "New Support Request — WasteZero",
+    html,
+  });
+}
+

@@ -1,6 +1,10 @@
 import express from "express";
 import requireAuth from "../middlewares/authMiddleware.js";
 import requireNGO from "../middlewares/roleCheck.js";
+import Application from "../models/Application.js";
+import Opportunity from "../models/Opportunity.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
+
 
 import {
   getAllOpportunities,
@@ -18,5 +22,74 @@ router.get("/:id", getOpportunityById);
 router.post("/", requireAuth, requireNGO, createOpportunity);
 router.put("/:id", requireAuth, requireNGO, updateOpportunity);
 router.delete("/:id", requireAuth, requireNGO, deleteOpportunity);
+// Apply for an opportunity
+router.post("/:id/apply", authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const opportunity = await Opportunity.findById(id);
+    if (!opportunity)
+      return res.status(404).json({ message: "Opportunity not found" });
+
+    const application = await Application.create({
+      opportunityId: id,
+      ngoId: opportunity.createdBy, // NGO who posted the opportunity
+      userId: req.user._id,
+      ...req.body,
+    });
+
+    res.json({ message: "Application submitted", application });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Get all applications for NGOs
+router.get("/ngo/applications", authMiddleware, async (req, res) => {
+  try {
+    if (req.user.role !== "ngo")
+      return res.status(403).json({ message: "Unauthorized" });
+
+    const apps = await Application.find({ ngoId: req.user.sub })
+    
+      .populate("userId", "firstName lastName email")
+      .populate("opportunityId", "title location");
+
+
+    res.json(apps);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Update application status (accept or reject)
+router.patch("/applications/:id/status", authMiddleware, async (req, res) => {
+  try {
+    if (req.user.role !== "ngo")
+      return res.status(403).json({ message: "Unauthorized" });
+
+    const { status } = req.body;
+
+    if (!["accepted", "rejected"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status value" });
+    }
+
+    const app = await Application.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+
+    res.json(app);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+
 
 export default router;

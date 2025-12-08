@@ -15,7 +15,7 @@ export default function Login({onLogin}) {
   const navigate = useNavigate();
 
   // ✅ Your backend (Express) base URL — fix this!
-  const API_URL = import.meta.env.BACKEND_API_URL || "http://localhost:5173/api"; 
+  const API_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:5173/api"; 
   // ^ should point to BACKEND (not frontend). You had `5173` (frontend dev server)
 
   /** 🔍 Validation */

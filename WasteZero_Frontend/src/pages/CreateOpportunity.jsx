@@ -18,8 +18,8 @@ export default function CreateOpportunity() {
 
 
   return (
-    <div className="min-h-screen bg-[#dff7ea] dark:bg-zinc-800 p-6 pt-20 transition-colors">
-      <div className="max-w-4xl mx-auto bg-white dark:bg-zinc-700 rounded-2xl shadow-xl p-8 border border-green-400/20 dark:border-green-300/10 transition-colors">
+    <div className="min-h-screen bg-green-100 dark:bg-zinc-900 p-6 pt-20 transition-colors">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-zinc-800 rounded-2xl shadow-xl p-8 border border-green-400/20 dark:border-green-300/10 transition-colors">
 
         <Link
           to="/eco-opportunities"

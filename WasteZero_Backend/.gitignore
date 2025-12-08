@@ -1,42 +1,99 @@
-# Node modules
-node_modules/
+# ========================================================
+# MAC SYSTEM FILES
+# ========================================================
+.DS_Store
 
-# Logs
-logs/
+# ========================================================
+# LOG FILES
+# ========================================================
+logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
 
-# Runtime data
-pids/
+# Diagnostic reports
+report.*.json
+
+# ========================================================
+# RUNTIME DATA
+# ========================================================
+pids
 *.pid
-*.seed
 *.pid.lock
 
-# Environment files
-.env
-.env.local
-.env.*.local
+# Output of npm pack
+*.tgz
 
-# Debugger
-.idea/
-.vscode/
-*.sublime-project
-*.sublime-workspace
-
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Coverage directory (if using Jest)
-coverage/
-
-# Optional npm cache directory
+# Optional caches
 .npm
+.eslintcache
+.stylelintcache
 
-# Optional REPL history
 .node_repl_history
 
-# Dist or build directories (if you have a build step)
+# ========================================================
+# DEPENDENCIES (DO NOT REMOVE)
+# ========================================================
+node_modules/
+jspm_packages/
+web_modules/
+
+# ========================================================
+# BUILD OUTPUT (DO NOT REMOVE)
+# ========================================================
 dist/
+build/
+.out/
+.next/
+.nuxt/
+.svelte-kit/
+.cache/
+temp/
+.docusaurus/
+.parcel-cache/
+
+# Vite cache
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# ========================================================
+# COVERAGE
+# ========================================================
+coverage/
+*.lcov
+.nyc_output
+
+# ========================================================
+# SERVERLESS
+# ========================================================
+.serverless/
+
+# ========================================================
+# YARN v3
+# ========================================================
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# ========================================================
+# ENV FILES
+# ========================================================
+# You said you WANT to push .env → so allow it.
+# Only ignore system-local env overrides:
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ========================================================
+# FRONTEND & CMS BUILDS
+# ========================================================
+.vuepress/dist
+**/.vitepress/dist
+**/.vitepress/cache
