@@ -118,7 +118,7 @@ function AppContent() {
               : location.pathname.includes("/help")
               ? "Help & Support"
               : location.pathname.includes("/settings")
-              ? "Setting"
+              ? "Settings"
               : location.pathname.includes("/applications")
               ? "Applications"
               : location.pathname.includes("/schedule")

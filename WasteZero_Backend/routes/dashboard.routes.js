@@ -69,6 +69,7 @@ router.get("/user", authMiddleware, async (req, res) => {
         $elemMatch: { userId: userId.toString() }
       }
     });
+    
 
 
     const totalEnrollments = enrolled.length;

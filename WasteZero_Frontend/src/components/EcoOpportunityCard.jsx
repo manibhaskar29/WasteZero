@@ -111,7 +111,7 @@ export default function EcoOpportunityCard({ item, onView }) {
           View
         </button>
 
-        {canApply && (
+        {canApply && isUser &&(
           <button
             onClick={() => setShowApply(true)}
             className="px-4 py-1 border border-green-600 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-50 dark:hover:bg-zinc-600 text-sm"

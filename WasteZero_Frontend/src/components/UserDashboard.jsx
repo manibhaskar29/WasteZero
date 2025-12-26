@@ -43,6 +43,8 @@ const applicationData = [
   });
 
   const data = res.data;
+  console.log(data);
+  
 
   
   setStats({
@@ -158,14 +160,16 @@ const applicationData = [
       )}
 
       {/* Applications */}
-      <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow">
+      <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow mt-8">
         <h2 className="text-lg font-semibold mb-4">Applications Breakdown</h2>
 
         <ResponsiveContainer width="100%" height={250}>
             <PieChart>
             
 
-            <Pie data={applicationData} dataKey="value" outerRadius={90}>
+            <Pie data={applicationData} dataKey="value" outerRadius={90}
+              label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}>
+              
                 {applicationData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS_Application[index % COLORS_Application.length]} />
                 ))}

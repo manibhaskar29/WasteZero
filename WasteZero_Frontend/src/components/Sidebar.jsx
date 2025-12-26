@@ -23,7 +23,7 @@ const navItems = [
   { name: "Pickup Schedule", icon: CalendarDays, path: "/schedule" },
   { name: "Messages", icon: MessageSquare, path: "/chats" },
   { name: "My Profile", icon: User, path: "/profile" },
-  { name: "Setting", icon: Settings, path: "/settings" },
+  { name: "Settings", icon: Settings, path: "/settings" },
   { name: "Help & Support", icon: HelpCircle, path: "/help" },
 ];
 
@@ -44,7 +44,7 @@ location.pathname.includes("/opportunities/create")
               : location.pathname.includes("/help")
               ? "Help"
               : location.pathname.includes("/settings")
-              ? "Setting"
+              ? "Settings"
               : location.pathname.includes("/applications")
               ? "Applications"
               : location.pathname.includes("/schedule")

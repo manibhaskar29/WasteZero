@@ -86,6 +86,7 @@ coverage/
 # ========================================================
 # You said you WANT to push .env → so allow it.
 # Only ignore system-local env overrides:
+.env
 .env.local
 .env.development.local
 .env.test.local
