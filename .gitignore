@@ -82,10 +82,11 @@ coverage/
 !.yarn/versions
 
 # ========================================================
-# ENV FILES
+# ENV FILES (CRITICAL: NEVER COMMIT THESE!)
 # ========================================================
-# You said you WANT to push .env → so allow it.
-# Only ignore system-local env overrides:
+.env
+.env.*
+*.env
 .env.local
 .env.development.local
 .env.test.local

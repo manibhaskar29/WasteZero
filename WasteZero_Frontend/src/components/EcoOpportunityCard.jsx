@@ -65,13 +65,15 @@ export default function EcoOpportunityCard({ item, onView }) {
     return "bg-red-100 text-red-700";
   };
 
-  // Condition: opportunity is in the future and user hasn't applied
-  const canApply = !isAdmin && !isNgo && !hasApplied && new Date(item.endDate) >= new Date();
+  // Apply conditions: Only regular users can apply (not NGOs or Admins)
+  // Also check if opportunity is still open and user hasn't already applied
+  const canApply = isUser && !hasApplied && new Date(item.endDate) >= new Date();
 
   return (
     <div className="bg-white dark:bg-zinc-700 rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col cursor-pointer">
 
-      {(isUser) && (
+      {/* Match % - Only visible to regular users */}
+      {isUser && (
         <div className="flex justify-end mb-2">
           <span className={`px-3 py-1 text-xs font-semibold rounded-full ${getMatchColor()}`}>
             {matchScore}% match
@@ -96,7 +98,7 @@ export default function EcoOpportunityCard({ item, onView }) {
         {opportunitySkills.slice(0, 3).map((skill, i) => (
           <span
             key={i}
-            className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-md"
+            className="px-2 py-1 text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-md"
           >
             {skill}
           </span>
@@ -104,6 +106,7 @@ export default function EcoOpportunityCard({ item, onView }) {
       </div>
 
       <div className="mt-4 flex gap-3">
+        {/* View button - visible to all roles */}
         <button
           onClick={() => onView(item)}
           className="px-4 py-1 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 cursor-pointer"
@@ -111,7 +114,8 @@ export default function EcoOpportunityCard({ item, onView }) {
           View
         </button>
 
-        {canApply && isUser && (
+        {/* Apply button - only for regular users who haven't applied yet */}
+        {canApply && (
           <button
             onClick={() => setShowApply(true)}
             className="px-4 py-1 border border-green-600 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-50 dark:hover:bg-zinc-600 text-sm cursor-pointer"
@@ -120,6 +124,7 @@ export default function EcoOpportunityCard({ item, onView }) {
           </button>
         )}
 
+        {/* Edit & Delete buttons - only for NGOs and Admins */}
         {(isNgo || isAdmin) && (
           <>
             <button

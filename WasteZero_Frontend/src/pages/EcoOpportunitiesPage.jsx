@@ -82,8 +82,8 @@ export default function EcoOpportunitiesPage() {
 
       <div>
         <h2 className="text-3xl font-semibold text-green-700 dark:text-green-300 mb-6">
-        Recommended Opportunites
-      </h2>
+          Recommended Opportunites
+        </h2>
       </div>
 
       {/* Cards Grid */}
@@ -99,17 +99,17 @@ export default function EcoOpportunitiesPage() {
           <button
             onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-3 py-1 bg-green-300 rounded disabled:opacity-50"
+            className="px-3 py-1 bg-green-600 dark:bg-green-700 text-white rounded disabled:opacity-50 hover:bg-green-700 dark:hover:bg-green-600"
           >
             Prev
           </button>
-          <span className="px-3 py-1">
+          <span className="px-3 py-1 text-gray-800 dark:text-gray-200">
             Page {currentPage} of {totalPages}
           </span>
           <button
             onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-3 py-1 bg-green-300 rounded disabled:opacity-50"
+            className="px-3 py-1 bg-green-600 dark:bg-green-700 text-white rounded disabled:opacity-50 hover:bg-green-700 dark:hover:bg-green-600"
           >
             Next
           </button>

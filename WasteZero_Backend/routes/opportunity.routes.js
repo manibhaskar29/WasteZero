@@ -1,6 +1,6 @@
 import express from "express";
 import requireAuth from "../middlewares/authMiddleware.js";
-import requireNGO from "../middlewares/roleCheck.js";
+import requireNGOOrAdmin from "../middlewares/roleCheck.js";
 import Application from "../models/Application.js";
 import Opportunity from "../models/Opportunity.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
@@ -16,15 +16,24 @@ import {
 
 const router = express.Router();
 
+// Public routes - anyone can view opportunities
 router.get("/", getAllOpportunities);
 router.get("/:id", getOpportunityById);
 
-router.post("/", requireAuth, requireNGO, createOpportunity);
-router.put("/:id", requireAuth, requireNGO, updateOpportunity);
-router.delete("/:id", requireAuth, requireNGO, deleteOpportunity);
-// Apply for an opportunity
+// Protected routes - NGOs and Admins can create/edit/delete
+router.post("/", requireAuth, requireNGOOrAdmin, createOpportunity);
+router.put("/:id", requireAuth, requireNGOOrAdmin, updateOpportunity);
+router.delete("/:id", requireAuth, requireNGOOrAdmin, deleteOpportunity);
+// Apply for an opportunity - Only regular users can apply
 router.post("/:id/apply", authMiddleware, async (req, res) => {
   try {
+    // Only regular users can apply (not NGOs or Admins)
+    if (req.user.role !== "user") {
+      return res.status(403).json({
+        message: "Only regular users can apply to opportunities. NGOs and Admins cannot apply."
+      });
+    }
+
     const { id } = req.params;
 
     const opportunity = await Opportunity.findById(id);
@@ -52,7 +61,7 @@ router.get("/ngo/applications", authMiddleware, async (req, res) => {
       return res.status(403).json({ message: "Unauthorized" });
 
     const apps = await Application.find({ ngoId: req.user.sub })
-    
+
       .populate("userId", "firstName lastName email")
       .populate("opportunityId", "title location");
 

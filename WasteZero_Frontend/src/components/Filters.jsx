@@ -70,7 +70,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
             setFilters(cleared);
             onSearch(cleared);
           }}
-          className="px-4 py-2 rounded-md border border-gray-300 dark:border-zinc-600 text-sm"
+          className="px-4 py-2 rounded-md border border-gray-300 dark:border-zinc-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-700 text-sm"
         >
           Clear
         </button>
