@@ -28,7 +28,7 @@ export default function ChatPage() {
   // -----------------------
   useEffect(() => {
     const token = localStorage.getItem("token");
-    
+
     if (!token || !userId) return;
 
     // use your connect helper (sets auth and connects)
@@ -187,7 +187,7 @@ export default function ChatPage() {
       setMessages((prev) => {
         const existing = prev[msg.chatId] || [];
         const dup = existing.some(
-          (m) => ( m._id === msg._id) || (m.tempId && msg.tempId && m.tempId === msg.tempId)
+          (m) => (m._id === msg._id) || (m.tempId && msg.tempId && m.tempId === msg.tempId)
         );
         if (dup) return prev;
 
@@ -247,7 +247,7 @@ export default function ChatPage() {
     // find chat to get recipient
     const chat = chats.find((c) => c._id === activeChat);
     console.log(chat);
-    
+
     if (!chat) return;
 
     // Safely resolve other participant id (works with populated objects or raw ids)
@@ -375,8 +375,8 @@ export default function ChatPage() {
   return (
     <div className="flex h-screen bg-[#f6f8fb] font-inter overflow-hidden pt-16 dark:bg-zinc-900">
       {/* SIDEBAR */}
-      <div className="w-[28%] bg-white border-r overflow-y-auto">
-        <div className="p-4 font-semibold text-lg border-b">Users</div>
+      <div className="w-[28%] bg-white dark:bg-zinc-800 border-r dark:border-zinc-700 overflow-y-auto">
+        <div className="p-4 font-semibold text-lg border-b dark:border-zinc-700 dark:text-white">Users</div>
         {allUsers.map((u) => {
           const existingChat = chats.find((c) =>
             c.participants?.some((p) => {
@@ -392,11 +392,11 @@ export default function ChatPage() {
             <div
               key={u._id}
               onClick={() => openOrCreateChatWithUser(u)}
-              className={`p-4 border-b cursor-pointer transition flex justify-between items-center ${isActive ? "bg-green-100" : "hover:bg-gray-50"}`}
+              className={`p-4 border-b dark:border-zinc-700 cursor-pointer transition flex justify-between items-center ${isActive ? "bg-green-100 dark:bg-green-900/30" : "hover:bg-gray-50 dark:hover:bg-zinc-700"}`}
             >
               <div>
-                <div className="font-semibold text-gray-800">{u.name}</div>
-                <small className="text-gray-500 uppercase text-xs">{u.role}</small>
+                <div className="font-semibold text-gray-800 dark:text-gray-100">{u.name}</div>
+                <small className="text-gray-500 dark:text-gray-400 uppercase text-xs">{u.role}</small>
               </div>
               {existingChat && <span className="text-xs text-green-600">●</span>}
             </div>
@@ -405,12 +405,12 @@ export default function ChatPage() {
       </div>
 
       {/* CHAT WINDOW */}
-      <div className="w-[72%] flex flex-col bg-[#f6f8fb]">
+      <div className="w-[72%] flex flex-col bg-[#f6f8fb] dark:bg-zinc-900">
         {activeChat ? (
           <>
             {/* Header */}
-            <div className="p-4 bg-white border-b shadow-sm z-10">
-              <h6 className="font-semibold text-lg text-gray-800">
+            <div className="p-4 bg-white dark:bg-zinc-800 border-b dark:border-zinc-700 shadow-sm z-10">
+              <h6 className="font-semibold text-lg text-gray-800 dark:text-white">
                 {(() => {
                   const chat = chats.find((c) => c._id === activeChat);
                   const other = chat?.participants?.find((p) => {
@@ -429,16 +429,16 @@ export default function ChatPage() {
             <div className="flex-1 p-5 overflow-y-auto flex flex-col gap-3">
               {(messages[activeChat] || []).map((msg, index) => (
                 <div
-                  key={msg._id || msg.tempId }
-                  className={`max-w-[65%] p-3 rounded-xl shadow-sm relative ${msg.sender === "me" ? "bg-green-100 ml-auto rounded-tr-none" : "bg-white border rounded-tl-none"}`}
+                  key={msg._id || msg.tempId}
+                  className={`max-w-[65%] p-3 rounded-xl shadow-sm relative ${msg.sender === "me" ? "bg-green-100 dark:bg-green-900/40 ml-auto rounded-tr-none" : "bg-white dark:bg-zinc-800 border dark:border-zinc-700 rounded-tl-none"}`}
                 >
-                  <div className="text-sm text-gray-800 break-words">{msg.text}</div>
+                  <div className="text-sm text-gray-800 dark:text-gray-100 break-words">{msg.text}</div>
                   <div className="flex justify-end gap-1 items-center mt-1">
-                    <span className="text-[10px] text-gray-500">
+                    <span className="text-[10px] text-gray-500 dark:text-gray-400">
                       {msg.time ? new Date(msg.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : ""}
                     </span>
                     {msg.sender === "me" && (
-                      <span className="text-[10px] text-gray-500 ml-1">{msg.status === "sending" ? "🕓" : "✓"}</span>
+                      <span className="text-[10px] text-gray-500 dark:text-gray-400 ml-1">{msg.status === "sending" ? "🕓" : "✓"}</span>
                     )}
                   </div>
                 </div>
@@ -447,12 +447,12 @@ export default function ChatPage() {
             </div>
 
             {/* Input */}
-            <div className="p-4 bg-white border-t flex gap-3 items-center">
+            <div className="p-4 bg-white dark:bg-zinc-800 border-t dark:border-zinc-700 flex gap-3 items-center">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                className="flex-1 p-3 border border-gray-300 rounded-full focus:outline-none focus:border-green-500 transition"
+                className="flex-1 p-3 border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-full focus:outline-none focus:border-green-500 dark:focus:border-green-400 transition"
                 placeholder="Type a message…"
               />
               <button onClick={sendMessage} disabled={!input.trim()} className="px-6 py-3 bg-green-600 text-white rounded-full font-medium hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
