@@ -17,7 +17,7 @@ export default function EcoOpportunityCard({ item, onView }) {
       try {
         const data = await fetchCurrentUser();
         console.log(data);
-        
+
         setUserSkills(data.user.skills || []);
         setRole(data.user.role || "user");
 
@@ -69,16 +69,16 @@ export default function EcoOpportunityCard({ item, onView }) {
   const canApply = !isAdmin && !isNgo && !hasApplied && new Date(item.endDate) >= new Date();
 
   return (
-    <div className="bg-white dark:bg-zinc-700 rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col">
+    <div className="bg-white dark:bg-zinc-700 rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col cursor-pointer">
 
       {(isUser) && (
-         <div className="flex justify-end mb-2">
+        <div className="flex justify-end mb-2">
           <span className={`px-3 py-1 text-xs font-semibold rounded-full ${getMatchColor()}`}>
             {matchScore}% match
           </span>
         </div>
-        )}
-      
+      )}
+
 
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
         {item.title}
@@ -106,15 +106,15 @@ export default function EcoOpportunityCard({ item, onView }) {
       <div className="mt-4 flex gap-3">
         <button
           onClick={() => onView(item)}
-          className="px-4 py-1 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700"
+          className="px-4 py-1 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 cursor-pointer"
         >
           View
         </button>
 
-        {canApply && isUser &&(
+        {canApply && isUser && (
           <button
             onClick={() => setShowApply(true)}
-            className="px-4 py-1 border border-green-600 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-50 dark:hover:bg-zinc-600 text-sm"
+            className="px-4 py-1 border border-green-600 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-50 dark:hover:bg-zinc-600 text-sm cursor-pointer"
           >
             Apply
           </button>
@@ -124,14 +124,14 @@ export default function EcoOpportunityCard({ item, onView }) {
           <>
             <button
               onClick={() => navigate(`/opportunities/edit/${item._id}`)}
-              className="px-4 py-1 bg-yellow-600 text-white text-sm rounded-lg hover:bg-yellow-700"
+              className="px-4 py-1 bg-yellow-600 text-white text-sm rounded-lg hover:bg-yellow-700 cursor-pointer"
             >
               Edit
             </button>
 
             <button
               onClick={() => handleDelete(item._id)}
-              className="px-4 py-1 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700"
+              className="px-4 py-1 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 cursor-pointer"
             >
               Delete
             </button>

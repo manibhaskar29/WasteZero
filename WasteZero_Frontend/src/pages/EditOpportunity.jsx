@@ -4,26 +4,26 @@ import OpportunityForm from "../components/OpportunityForm";
 import { fetchOpportunityById, updateOpportunity } from "../api/opportunities.api";
 
 export default function EditOpportunity() {
-  const {id } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [initialData, setInitialData] = useState(null);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-  async function load() {
-    const op = await fetchOpportunityById(id);
-    setInitialData(op);
-  }
-  load();
-}, [id]);
+    async function load() {
+      const op = await fetchOpportunityById(id);
+      setInitialData(op);
+    }
+    load();
+  }, [id]);
 
 
   const handleSave = async (updated) => {
-  setSaving(true);
-  await updateOpportunity(id, updated);
-  navigate("/opportunities");
-};
+    setSaving(true);
+    await updateOpportunity(id, updated);
+    navigate("/opportunities");
+  };
 
 
   if (!initialData)
@@ -39,7 +39,7 @@ export default function EditOpportunity() {
 
         <Link
           to="/opportunities"
-          className="text-green-700 dark:text-white hover:underline"
+          className="text-green-700 dark:text-white hover:underline cursor-pointer"
         >
           ← Back to Opportunities
         </Link>

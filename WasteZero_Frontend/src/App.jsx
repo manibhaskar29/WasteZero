@@ -41,7 +41,10 @@ import { NotificationProvider, useNotifications } from "./context/NotificationCo
 function AppContent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved === 'true';
+  });
   const location = useLocation();
   const { fetchNotifications } = useNotifications();
 
@@ -60,6 +63,7 @@ function AppContent() {
   /** 🌙 Dark mode toggle */
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
+    localStorage.setItem('darkMode', darkMode);
   }, [darkMode]);
 
   /** 🔐 Login handler */
@@ -108,26 +112,26 @@ function AppContent() {
             location.pathname.includes("/opportunities/create")
               ? "Create Opportunity"
               : location.pathname.includes("/opportunities/edit")
-              ? "Edit Opportunity"
-              : location.pathname.includes("/opportunities")
-              ? "Eco Opportunities"
-              : location.pathname.includes("/profile")
-              ? "My Profile"
-              : location.pathname.includes("/chats")
-              ? "Messages"
-              : location.pathname.includes("/help")
-              ? "Help & Support"
-              : location.pathname.includes("/settings")
-              ? "Settings"
-              : location.pathname.includes("/applications")
-              ? "Applications"
-              : location.pathname.includes("/schedule")
-              ? "Pickup Schedule"
-              : location.pathname.includes("/admin")
-              ? "Admin Panel"
-              : location.pathname.includes("/notifications")
-              ? "Notifications"
-              : "Dashboard"
+                ? "Edit Opportunity"
+                : location.pathname.includes("/opportunities")
+                  ? "Eco Opportunities"
+                  : location.pathname.includes("/profile")
+                    ? "My Profile"
+                    : location.pathname.includes("/chats")
+                      ? "Messages"
+                      : location.pathname.includes("/help")
+                        ? "Help & Support"
+                        : location.pathname.includes("/settings")
+                          ? "Settings"
+                          : location.pathname.includes("/applications")
+                            ? "Applications"
+                            : location.pathname.includes("/schedule")
+                              ? "Pickup Schedule"
+                              : location.pathname.includes("/admin")
+                                ? "Admin Panel"
+                                : location.pathname.includes("/notifications")
+                                  ? "Notifications"
+                                  : "Dashboard"
           }
           onLogout={handleLogout}
         />
@@ -147,9 +151,8 @@ function AppContent() {
 
       {/* Main Content */}
       <main
-        className={`flex-1 flex flex-col transition-all duration-300 ${
-          showSidebar ? "ml-64" : "ml-0"
-        }`}
+        className={`flex-1 flex flex-col transition-all duration-300 ${showSidebar ? "ml-64" : "ml-0"
+          }`}
       >
         {!authChecked ? (
           <div className="flex-1 flex items-center justify-center text-gray-700 dark:text-gray-300">

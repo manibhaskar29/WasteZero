@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import google from "../assets/google.svg";
 import github from "../assets/github.svg";
 
-export default function Login({onLogin}) {
+export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
@@ -14,9 +14,8 @@ export default function Login({onLogin}) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ Your backend (Express) base URL — fix this!
-  const API_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:5173/api"; 
-  // ^ should point to BACKEND (not frontend). You had `5173` (frontend dev server)
+  // Backend API URL - currently running on port 5173
+  const API_URL = import.meta.env.VITE_BACKEND_API_URL || "http://localhost:5173/api";
 
   /** 🔍 Validation */
   const validate = () => {
@@ -45,7 +44,7 @@ export default function Login({onLogin}) {
 
       const data = await res.json();
       // console.log(data);
-      
+
       setLoading(false);
 
       if (res.ok) {
@@ -134,11 +133,10 @@ export default function Login({onLogin}) {
               <input
                 id="email"
                 type="email"
-                className={`w-full p-3 rounded-lg border ${
-                  errors.email
+                className={`w-full p-3 rounded-lg border ${errors.email
                     ? "border-red-500"
                     : "border-gray-300 dark:border-gray-600"
-                } bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500`}
+                  } bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500`}
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -159,11 +157,10 @@ export default function Login({onLogin}) {
                 Password
               </label>
               <div
-                className={`flex items-center border rounded-lg ${
-                  errors.password
+                className={`flex items-center border rounded-lg ${errors.password
                     ? "border-red-500 focus-within:ring-red-400"
                     : "border-gray-300 dark:border-gray-600 focus-within:ring-green-500"
-                } bg-white dark:bg-zinc-800 focus-within:ring-2 transition`}
+                  } bg-white dark:bg-zinc-800 focus-within:ring-2 transition`}
               >
                 <input
                   id="password"

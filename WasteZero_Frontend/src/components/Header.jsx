@@ -22,11 +22,10 @@ export default function Header({
   return (
     <header
       className={`fixed top-0 z-50 h-16 flex items-center justify-between px-6 shadow-sm backdrop-blur-md border-b border-gray-200 dark:border-zinc-800
-      bg-white/70 dark:bg-zinc-900/80 transition-all duration-300 ${
-        hasSidebar ? "left-64 w-[calc(100%-16rem)]" : "left-0 w-full"
-      }`}
+      bg-white/70 dark:bg-zinc-900/80 transition-all duration-300 ${hasSidebar ? "left-64 w-[calc(100%-16rem)]" : "left-0 w-full"
+        }`}
     >
-      {/* 🧩 Logo Section */}      
+      {/* 🧩 Logo Section */}
       {!isAuthenticated ? (
         <div
           onClick={() => navigate("/")}
@@ -49,7 +48,7 @@ export default function Header({
         {/* Theme Toggle */}
         <button
           onClick={toggleDarkMode}
-          className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+          className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition cursor-pointer"
           title={darkMode ? "Light mode" : "Dark mode"}
         >
           {darkMode ? <Sun size={20} /> : <Moon size={20} />}
@@ -59,7 +58,7 @@ export default function Header({
         {isAuthenticated && (
           <div className="relative">
             <button
-              className="relative p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              className="relative p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition cursor-pointer"
               onClick={() => setShowPopover(prev => !prev)}
               title="Notifications"
             >
@@ -96,14 +95,14 @@ export default function Header({
         {!isAuthenticated ? (
           <button
             onClick={() => navigate("/login")}
-            className="px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition"
+            className="px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition cursor-pointer"
           >
             Get Started →
           </button>
         ) : (
           <button
             onClick={onLogout}
-            className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+            className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition cursor-pointer"
           >
             <LogOut size={18} />
             Logout

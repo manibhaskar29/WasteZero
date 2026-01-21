@@ -31,29 +31,29 @@ export default function Sidebar({ active, onLogout }) {
   const nav = useNavigate();
   const role = localStorage.getItem("role"); // "ngo" | "user" | "admin"
   const { unreadCount } = useNotifications();
-location.pathname.includes("/opportunities/create")
-              ? "Create Opportunity"
-              : location.pathname.includes("/opportunities/edit")
-              ? "Edit Opportunity"
-              : location.pathname.includes("/opportunities")
-              ? "Eco Opportunities"
-              : location.pathname.includes("/profile")
-              ? "My Profile"
-              : location.pathname.includes("/chats")
-              ? "Chat"
-              : location.pathname.includes("/help")
+  location.pathname.includes("/opportunities/create")
+    ? "Create Opportunity"
+    : location.pathname.includes("/opportunities/edit")
+      ? "Edit Opportunity"
+      : location.pathname.includes("/opportunities")
+        ? "Eco Opportunities"
+        : location.pathname.includes("/profile")
+          ? "My Profile"
+          : location.pathname.includes("/chats")
+            ? "Chat"
+            : location.pathname.includes("/help")
               ? "Help"
               : location.pathname.includes("/settings")
-              ? "Settings"
-              : location.pathname.includes("/applications")
-              ? "Applications"
-              : location.pathname.includes("/schedule")
-              ? "Schedule"
-              : location.pathname.includes("/admin")
-              ? "Admin Panel"
-              : location.pathname.includes("/notifications")
-              ? "Notifications"
-              : "Dashboard"
+                ? "Settings"
+                : location.pathname.includes("/applications")
+                  ? "Applications"
+                  : location.pathname.includes("/schedule")
+                    ? "Schedule"
+                    : location.pathname.includes("/admin")
+                      ? "Admin Panel"
+                      : location.pathname.includes("/notifications")
+                        ? "Notifications"
+                        : "Dashboard"
   return (
     <aside className="fixed top-0 left-0 h-full w-64 bg-white dark:bg-zinc-800 shadow-lg border-r border-gray-200 dark:border-zinc-700 flex flex-col justify-between transition-all duration-300">
       <div>
@@ -75,11 +75,10 @@ location.pathname.includes("/opportunities/create")
             <button
               key={name}
               onClick={() => nav(path)}
-              className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${
-                active === name
+              className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all cursor-pointer ${active === name
                   ? "bg-green-600 text-white shadow-md"
                   : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-              }`}
+                }`}
             >
               <Icon size={18} />
               {name}
@@ -94,11 +93,10 @@ location.pathname.includes("/opportunities/create")
               </p>
               <button
                 onClick={() => nav("/notifications")}
-                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${
-                  active === "Notifications"
+                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all cursor-pointer ${active === "Notifications"
                     ? "bg-green-600 text-white shadow-md"
                     : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                }`}
+                  }`}
               >
                 <Bell size={18} />
                 Notifications
@@ -120,11 +118,10 @@ location.pathname.includes("/opportunities/create")
 
               <button
                 onClick={() => nav("/opportunities/create")}
-                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${
-                  active === "Create Opportunity"
+                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all cursor-pointer ${active === "Create Opportunity"
                     ? "bg-green-600 text-white shadow-md"
                     : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                }`}
+                  }`}
               >
                 <PlusCircle size={18} />
                 Create Opportunity
@@ -132,11 +129,10 @@ location.pathname.includes("/opportunities/create")
 
               <button
                 onClick={() => nav("/opportunities/edit")}
-                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${
-                  active === "Edit Opportunity"
+                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${active === "Edit Opportunity"
                     ? "bg-green-600 text-white shadow-md"
                     : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                }`}
+                  }`}
                 disabled={true}
               >
                 <Pencil size={18} />
@@ -145,11 +141,10 @@ location.pathname.includes("/opportunities/create")
 
               <button
                 onClick={() => nav("/applications")}
-                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${
-                  active === "Applications"
+                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all cursor-pointer ${active === "Applications"
                     ? "bg-green-600 text-white shadow-md"
                     : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                }`}
+                  }`}
               >
                 <FileText size={18} />
                 View Applications
@@ -166,11 +161,10 @@ location.pathname.includes("/opportunities/create")
 
               <button
                 onClick={() => nav("/admin")}
-                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all ${
-                  active === "Admin Panel"
+                className={`flex items-center gap-3 w-full px-4 py-3 text-sm font-medium rounded-lg transition-all cursor-pointer ${active === "Admin Panel"
                     ? "bg-green-600 text-white shadow-md"
                     : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                }`}
+                  }`}
               >
                 <Shield size={18} />
                 Admin Panel

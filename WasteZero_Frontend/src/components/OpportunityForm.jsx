@@ -32,7 +32,7 @@ export default function OpportunityForm({
     "Environmental Awareness Campaigns",
   ];
 
-  
+
   const setField = (key, value) => {
     setValues((prev) => ({ ...prev, [key]: value }));
   };
@@ -121,10 +121,9 @@ export default function OpportunityForm({
               key={skill}
               className={`flex items-center gap-2 px-3 py-3 rounded-xl bg-white
                 dark:bg-zinc-700 shadow-md border cursor-pointer transition
-                ${
-                  values.skills.includes(skill)
-                    ? "border-green-600 dark:border-green-400 shadow-lg text-green-700"
-                    : "hover:border-green-400"
+                ${values.skills.includes(skill)
+                  ? "border-green-600 dark:border-green-400 shadow-lg text-green-700"
+                  : "hover:border-green-400"
                 }`}
             >
               <input
@@ -145,7 +144,7 @@ export default function OpportunityForm({
           <label className="font-semibold block mb-1 text-gray-700 dark:text-gray-300">
             Duration
           </label>
-          <input 
+          <input
             className="w-full border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-zinc-400
                        bg-white dark:bg-zinc-700 rounded-xl px-3 py-2"
             placeholder="e.g., 3 hours/day"
@@ -205,7 +204,7 @@ export default function OpportunityForm({
         <button
           type="reset"
           className="px-5 py-2 border rounded-xl border-gray-300 dark:border-gray-700
-                     text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                     text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
           onClick={() =>
             setValues({
               title: "",
@@ -226,7 +225,7 @@ export default function OpportunityForm({
           type="submit"
           disabled={submitting}
           className="px-5 py-2 rounded-xl bg-green-600 text-white hover:bg-green-700
-                     dark:bg-green-600 dark:hover:bg-green-400 shadow-md"
+                     dark:bg-green-600 dark:hover:bg-green-400 shadow-md cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {submitting ? "Saving..." : "Save Opportunity"}
         </button>
