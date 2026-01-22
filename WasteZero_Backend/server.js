@@ -27,9 +27,30 @@ const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 const app = express();
 
 // ---------- CORS ----------
+// Allow multiple origins (local + all Vercel deployments)
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  FRONTEND_URL,
+];
+
 app.use(
   cors({
-    origin: FRONTEND_URL,
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+
+      // Check if origin is in allowed list or is a Vercel deployment
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.includes("vercel.app") ||
+        origin.includes("localhost")
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
@@ -58,7 +79,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/opportunities", opportunityRoutes);
 app.use("/api/chats", chatRoutes); // <-- FIXED
-app.use("/api/pickup",pickupRoutes);
+app.use("/api/pickup", pickupRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/applications", ApplicationRoutes);
 app.use("/api/admin", adminRoutes);
@@ -74,7 +95,18 @@ const server = http.createServer(app);
 // ---------- SOCKET.IO SERVER ----------
 const io = new Server(server, {
   cors: {
-    origin: FRONTEND_URL,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.includes("vercel.app") ||
+        origin.includes("localhost")
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ["Authorization"],
